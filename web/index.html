@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveM Meta-Editor Suite</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="header-top">
+                <img src="assets/logo.png" alt="Geigro Logo" class="header-logo">
+                <h1>FiveM Meta-Editor Suite</h1>
+            </div>
+            <div class="tabs-container">
+                <button class="tab-btn active" data-meta="carcols">Carcols</button>
+                <button class="tab-btn" data-meta="vehicles">Vehicles</button>
+                <button class="tab-btn" data-meta="handling">Handling</button>
+                <button class="tab-btn" data-meta="carvariations">Carvariations</button>
+            </div>
+        </header>
+        <div class="container">
+            <aside class="sidebar">
+                <button id="uploadBtn" class="sidebar-btn">Meta laden</button>
+                <button id="createBtn" class="sidebar-btn active-sidebar">Meta erstellen</button>
+            </aside>
+            <main class="main-content">
+                <!-- CARCOLS SECTION -->
+                <div class="meta-section" data-meta="carcols">
+                    <section id="carcolsUploadSection" class="hidden">
+                        <div class="form-group">
+                            <label>Wähle eine carcols.meta Datei:</label>
+                            <input type="file" id="carcolsFile" accept=".meta">
+                        </div>
+                        <div id="carcolsFileInfo"></div>
+                        <div id="carcolsMetaOverview"></div>
+                    </section>
+                    <section id="carcolsCreateSection" class="hidden">
+                        <div class="config-toggles">
+                            <div class="toggle-checkbox">
+                                <input type="checkbox" id="enableCarcolsSirens" checked>
+                                <label for="enableCarcolsSirens">Sirens generieren</label>
+                            </div>
+                            <div class="toggle-checkbox">
+                                <input type="checkbox" id="enableCarcolsTuning" checked>
+                                <label for="enableCarcolsTuning">Tuning-Teile konfigurieren</label>
+                            </div>
+                        </div>
+                        <div id="carcolsSirenSection">
+                            <h2 class="section-title">Siren-Editor</h2>
+                            <div class="form-group">
+                                <label>Fahrzeug-ID für Siren:</label>
+                                <input type="number" id="carcolsSirenVehicleId" value="11440" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Siren-Name:</label>
+                                <input type="text" id="carcolsSirenName" value="custom_siren" placeholder="z.B. rs3s20">
+                            </div>
+                            <div id="carcolsSirensList"></div>
+                            <button class="btn-primary" id="carcolsAddSirenBtn">+ Siren hinzufügen</button>
+                        </div>
+                        <div id="carcolsTuningSection">
+                            <h2 class="section-title">Tuning-Teile Konfiguration</h2>
+                            <div class="form-group">
+                                <label>Kit-Name:</label>
+                                <input type="text" id="carcolsKitName" value="custom_modkit">
+                            </div>
+                            <div id="carcolsTuningList"></div>
+                            <button class="btn-primary" id="carcolsAddTuningBtn">+ Tuning-Teil hinzufügen</button>
+                        </div>
+                        <button class="btn-primary" id="carcolsGenerateBtn" style="font-size: 1.1rem; padding: 14px 32px; margin-top: 32px; width: 100%;">
+                            Carcols.meta herunterladen
+                        </button>
+                    </section>
+                </div>
+
+                <!-- VEHICLES SECTION -->
+                <div class="meta-section hidden" data-meta="vehicles">
+                    <section id="vehiclesUploadSection" class="hidden">
+                        <div class="form-group">
+                            <label>Wähle eine vehicles.meta Datei:</label>
+                            <input type="file" id="vehiclesFile" accept=".meta">
+                        </div>
+                        <div id="vehiclesFileInfo"></div>
+                        <div id="vehiclesMetaOverview"></div>
+                    </section>
+                    <section id="vehiclesCreateSection" class="hidden">
+                        <div class="form-group">
+                            <label>Modell-Name:</label>
+                            <input type="text" id="vehiclesModelName" value="custom_vehicle" placeholder="z.B. adder">
+                        </div>
+                        <div class="form-group">
+                            <label>Fahrzeug-Klasse:</label>
+                            <select id="vehiclesClass">
+                                <option>compact</option>
+                                <option>sedan</option>
+                                <option>suv</option>
+                                <option>coupe</option>
+                                <option>muscle</option>
+                                <option>sports</option>
+                                <option>super</option>
+                            </select>
+                        </div>
+                        <div id="vehiclesVehiclesList"></div>
+                        <button class="btn-primary" id="vehiclesAddVehicleBtn">+ Fahrzeug hinzufügen</button>
+                        <button class="btn-primary" id="vehiclesGenerateBtn" style="font-size: 1.1rem; padding: 14px 32px; margin-top: 32px; width: 100%;">
+                            Vehicles.meta herunterladen
+                        </button>
+                    </section>
+                </div>
+
+                <!-- HANDLING SECTION -->
+                <div class="meta-section hidden" data-meta="handling">
+                    <section id="handlingUploadSection" class="hidden">
+                        <div class="form-group">
+                            <label>Wähle eine handling.meta Datei:</label>
+                            <input type="file" id="handlingFile" accept=".meta">
+                        </div>
+                        <div id="handlingFileInfo"></div>
+                        <div id="handlingMetaOverview"></div>
+                    </section>
+                    <section id="handlingCreateSection" class="hidden">
+                        <div class="form-group">
+                            <label>Fahrzeug-Name:</label>
+                            <input type="text" id="handlingVehicleName" value="custom_handling">
+                        </div>
+                        <div class="form-group">
+                            <label>Masse (kg):</label>
+                            <input type="number" id="handlingMass" value="1500" step="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Beschleunigung:</label>
+                            <input type="number" id="handlingAcceleration" value="0.5" step="0.1" min="0" max="2">
+                        </div>
+                        <div id="handlingHandlingsList"></div>
+                        <button class="btn-primary" id="handlingAddHandlingBtn">+ Handling hinzufügen</button>
+                        <button class="btn-primary" id="handlingGenerateBtn" style="font-size: 1.1rem; padding: 14px 32px; margin-top: 32px; width: 100%;">
+                            Handling.meta herunterladen
+                        </button>
+                    </section>
+                </div>
+
+                <!-- CARVARIATIONS SECTION -->
+                <div class="meta-section hidden" data-meta="carvariations">
+                    <section id="carvariationsUploadSection" class="hidden">
+                        <div class="form-group">
+                            <label>Wähle eine carvariations.meta Datei:</label>
+                            <input type="file" id="carvariationsFile" accept=".meta">
+                        </div>
+                        <div id="carvariationsFileInfo"></div>
+                        <div id="carvariationsMetaOverview"></div>
+                    </section>
+                    <section id="carvariationsCreateSection" class="hidden">
+                        <div class="form-group">
+                            <label>Modell-Name:</label>
+                            <input type="text" id="carvariationsModelName" value="custom_model">
+                        </div>
+                        <div class="form-group">
+                            <label>Varianten-Anzahl:</label>
+                            <input type="number" id="carvariationsCount" value="1" min="1" max="10">
+                        </div>
+                        <div id="carvariationsVariationsList"></div>
+                        <button class="btn-primary" id="carvariationsAddVariationBtn">+ Variante hinzufügen</button>
+                        <button class="btn-primary" id="carvariationsGenerateBtn" style="font-size: 1.1rem; padding: 14px 32px; margin-top: 32px; width: 100%;">
+                            Carvariations.meta herunterladen
+                        </button>
+                    </section>
+                </div>
+            </main>
+        </div>
+        <footer>
+            <p>FiveM Meta-Editor Suite | by geigro-developing</p>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
